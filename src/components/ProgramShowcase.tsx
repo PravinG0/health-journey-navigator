@@ -130,14 +130,14 @@ export function ProgramShowcase() {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const program = programs[active];
+  const program = programs[active]!;
 
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
           setVisible(true);
           observer.disconnect();
         }
@@ -204,7 +204,7 @@ export function ProgramShowcase() {
                       (active + (event.key === "ArrowRight" ? 1 : -1) + programs.length) %
                       programs.length;
                     setActive(next);
-                    document.getElementById(`program-tab-${programs[next].id}`)?.focus();
+                    document.getElementById(`program-tab-${programs[next]!.id}`)?.focus();
                   }
                 }}
                 className="group relative shrink-0 whitespace-nowrap rounded-full px-1 py-3 text-sm font-medium tracking-wide outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background md:text-base"
