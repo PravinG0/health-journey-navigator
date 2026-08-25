@@ -142,3 +142,126 @@
     color: var(--color-foreground);
   }
 }
+
+/* Program showcase: wellness accents, decorative gradients, motion */
+:root {
+  --accent-strong: oklch(0.52 0.078 186);
+  --accent-soft: oklch(0.82 0.045 186);
+  --gradient-halo: radial-gradient(
+    circle at center,
+    oklch(0.86 0.05 186 / 0.35),
+    transparent 68%
+  );
+  --gradient-image-veil: linear-gradient(
+    to top,
+    oklch(0.25 0.03 200 / 0.28),
+    transparent 55%
+  );
+}
+
+@theme inline {
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+}
+
+@keyframes rmc-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rmc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rmc-swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rmc-image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04) translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rmc-dash {
+  from {
+    stroke-dashoffset: 600;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.rmc-orbit {
+  animation: rmc-orbit-spin 42s linear infinite;
+}
+
+.rmc-orbit-reverse {
+  animation: rmc-orbit-spin 60s linear infinite reverse;
+}
+
+.rmc-draw {
+  stroke-dasharray: 600;
+  animation: rmc-dash 2.4s ease-out both;
+}
+
+.rmc-reveal .rmc-item {
+  opacity: 0;
+}
+
+.rmc-reveal[data-visible="true"] .rmc-item {
+  animation: rmc-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rmc-reveal[data-visible="true"] .rmc-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.rmc-reveal[data-visible="true"] .rmc-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.rmc-reveal[data-visible="true"] .rmc-item:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.rmc-swap {
+  animation: rmc-swap-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rmc-swap-image {
+  animation: rmc-image-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rmc-orbit,
+  .rmc-orbit-reverse,
+  .rmc-draw,
+  .rmc-swap,
+  .rmc-swap-image,
+  .rmc-reveal[data-visible="true"] .rmc-item {
+    animation: none !important;
+  }
+  .rmc-reveal .rmc-item {
+    opacity: 1;
+  }
+}
+
